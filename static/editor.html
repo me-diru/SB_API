@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Editor account prediction
+        </title>
+        
+        <style>
+
+        </style>
+    </head>
+    <body>
+        <div>
+        <h2> Enter editor account details for prediciton</h2> <br>
+        <table>
+
+            <tr>
+                <td> Email: </td>
+                <td> <input id = "email-input"> </td>
+            </tr>
+            <tr>
+                <td> Website: </td>
+                <td> <input id = "website-input"> </td>
+            </tr>
+            <tr>
+                <td>  Bio:  </td>
+                <td> <textarea id = "bio-input" >  </textarea></td>
+            </tr>
+            <tr>
+                <td> Area:  </td>
+                <td> <input id = "area-input"> </td>
+            </tr>
+            <tr>
+                <td> Privs:</td>
+                <td> <input id = "privs-input"> </td>
+            </tr>
+            <tr>
+                <td> Gender:</td>
+                <td> <input id = "gender-input"> </td>
+            </tr>
+            <tr>
+                <td> Birth Date: </td>
+                <td> <input id = "birth-date-input" type="datetime-local"> </td>
+            </tr>
+            <tr>
+                <td>  Member Since: </td>
+                <td> <input id = "member-since-input" type="datetime-local"> </td>
+            </tr>
+            <tr>
+                <td>Email Confirm Date: </td>
+                <td> <input id = "email-confirm-date-input" type="datetime-local"> </td>
+            </tr>
+            <tr>
+                <td> Last Updated: </td>
+                <td> <input id = "last-updated-input" type="datetime-local"> </td>
+            </tr>
+            <tr>
+                <td> Last Login: </td>
+                <td> <input id = "last-login-date-input" type="datetime-local"> </td>
+            </tr>
+            <tr>
+                <td><button id= "editor-button">Get Prediction</button> </td>
+            </tr>            
+        </table>
+        <div>
+            <p id="result"></p>
+        </div>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+        <script>
+            $("#editor-button").click(function(event){
+                let message = {
+                    email: $("#email-input").val(),
+                    website: $("#website-input").val(),
+                    bio: $("#bio-input").val(),
+                    area: $("#area-input").val(),
+                    privs: $("#privs-input").val(),
+                    gender: $("#gender-input").val(),
+                    birth_date: $("#birth-date-input").val(),
+                    member_since: $("#member-since-input").val(),
+                    email_confirm_date: $("#email-confirm-date-input").val(),
+                    last_updated: $("#last-updated-input").val(),
+                    last_login_date: $("#last-login-date-input").val(),
+
+                }
+                $.post("http://localhost:5000/predict", JSON.stringify(message),function(response){
+                    $("#result").text(response.result);
+                    console.log(response)
+                    // console.log("Hi");
+                });
+            });
+        </script>
+        
+
+    </body>
+</html>

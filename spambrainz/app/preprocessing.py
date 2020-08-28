@@ -12,6 +12,12 @@ one_hour = timedelta(hours=1)
 
 bio_tokenizer, website_tokenizer, email_tokenizer = None, None, None
 
+# online learning with flase positives :)
+
+
+
+# ************************************
+
 def load_tokenizers():
     global bio_tokenizer, website_tokenizer, email_tokenizer
 
@@ -30,7 +36,9 @@ extractor = URLExtract()
 one_hour = timedelta(hours=1)
 
 
-def preprocess_editor(editor, spam = None):
+def preprocess_editor(editor, spam=1):
+    # print(editor)
+    print("**************************")
     load_tokenizers()
     # Apparently there are users with unset member_since
     if editor["member_since"] is not None:

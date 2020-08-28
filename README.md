@@ -18,6 +18,4 @@ Enter editor account detials, press prediction to get prediciton.
 
 This is a sample prediction done using LodBrok: 
 
-![](static/images/prediciton.png)
-
-
+![](/spambrainz/static/images/prediciton.png)

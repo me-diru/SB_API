@@ -84,7 +84,7 @@ def preprocess_editor(editor, spam=None):
         bio = np.zeros(512)
     
     data = np.array([
-        spam, # spam classification
+        spam, # spam classification (used only during training the model)
         editor["area"] is not None, # Area Set
         editor["gender"] is not None, # Gender
         editor["birth_date"] is not None, # Birth date set

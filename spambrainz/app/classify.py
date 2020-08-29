@@ -47,7 +47,9 @@ def classify_process():
 
     # defining the structure
     queue = np.array([queue])
-            
+    
+    # only data from index 1 is considered while predicting, thus 
+    # not taking the spam value into consideration
     predict_data = {
         "main_input": np.array(queue[:,1:10]),
         "email_input": np.array(queue[:,10]),

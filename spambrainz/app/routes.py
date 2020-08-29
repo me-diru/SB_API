@@ -42,10 +42,10 @@ def predict():
 
             # the classification done is retrived form redis
             output = db.get(editor_id)
-              
+            output =  json.loads(output)
+            output["id"] = editor_id
             if output is not None:
-
-                data["predictions"] = json.loads(output)                   
+                data["predictions"] = output              
                 db.delete(editor_id)                    
                 data["success"] = True
 

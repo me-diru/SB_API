@@ -12,12 +12,8 @@ one_hour = timedelta(hours=1)
 
 bio_tokenizer, website_tokenizer, email_tokenizer = None, None, None
 
-# online learning with flase positives :)
-
-
-
-# ************************************
-
+# The tokenizers build by the model are loaded here to convert 
+# given input to vectors to train on
 def load_tokenizers():
     global bio_tokenizer, website_tokenizer, email_tokenizer
 
@@ -31,14 +27,13 @@ def load_tokenizers():
         email_tokenizer = pickle.load(f)
 
 # editor preprocessing
-
 extractor = URLExtract()
 one_hour = timedelta(hours=1)
 
+# preprocess_editor is used to convert given data to np array for
+# the model to train on
+def preprocess_editor(editor, spam=None):    
 
-def preprocess_editor(editor, spam=1):
-    # print(editor)
-    print("**************************")
     load_tokenizers()
     # Apparently there are users with unset member_since
     if editor["member_since"] is not None:
@@ -104,5 +99,5 @@ def preprocess_editor(editor, spam=1):
     ], dtype=np.float32)
         
     data = np.concatenate((data, bio))
-    print("It's working")
+    # print("Preproccessed data")    
     return data

@@ -69,7 +69,7 @@ def retrain_model(training_data):
 
     # set model optimizer learning rate to a smaller static value to avoid 
     # cateshtrophic forgetting
-    m.optimizer.lr = 0.01
+    m.optimizer.lr = 0.001
 
     # saving the previous weights before training for future reference
     m.save('static/models/weights/previous_lodbrok.h5')

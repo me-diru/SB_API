@@ -10,7 +10,9 @@ import datetime
 KERAS_REST_API_URL = "http://localhost:4321/predict"
 
 # set spam editor account details to classify by the model
-editor_account = {    
+editor_account = {}
+
+editor_account[0]= {    
     'id' : 1,
     'email': 'ghhfbca@porsh.net',
     'website': 'http://www.kisaiya.co.uk',
@@ -24,6 +26,23 @@ editor_account = {
     'last_updated': datetime.datetime(2000, 9, 2, 7, 21, 8, 5).strftime('%Y-%m-%dT%H:%M:%S'),
     'last_login_date': datetime.datetime(2000, 9, 2, 9, 21, 38, 5).strftime('%Y-%m-%dT%H:%M:%S')    
           
+}
+
+# add non spam editor account details
+
+editor_account[1] = {
+    'id': 2,
+    'email': 'dckckaj@msn.com',
+    'website': 'http://valeur-dachat.fr',
+    'bio': 'enhance card gift leisure boost transfer detail layer mechanic gauge tomato repair rather infant laptop document wool december retreat behave sunset innocent what spray cake mother cart fall smart essay lyrics you observe battle film raccoon garment boss cook prize dumb police define outer shuffle glad engage stool chair recall depart use material yellow next life shoe print luxury isolate elegant civil bullet argue genuine swear allow unfold fortune region glory hour rule ',
+    'area': None,
+    'privs': 0,
+    'gender': None,
+    'birth_date': None,
+    'member_since': datetime.datetime(2004, 10, 13, 11, 3, 46, 5).strftime('%Y-%m-%dT%H:%M:%S'),
+    'email_confirm_date': datetime.datetime(2004, 10, 14, 9, 38, 45, 5).strftime('%Y-%m-%dT%H:%M:%S'),
+    'last_updated': None,
+    'last_login_date': None
 }
 
 # submit the request to classify the given data by lodbrok model to /predict endpoint 

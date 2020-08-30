@@ -10,7 +10,6 @@ model = model
 
 # initialize constants used for redis server
 EDITOR_QUEUE = "editor_queue"
-BATCH_SIZE = 1
 SERVER_SLEEP = 0.25
 CLIENT_SLEEP = 0.25
 
@@ -21,45 +20,47 @@ def string_to_datetime(string_dt):
     return datetime.datetime(*[int(v) for v in string_dt.replace('T', '-').replace(':', '-').split('-')])
 
 # function used to retrive editor_data from redis and store the results back 
-def classify_process():
+def classify_process(size):
     
     print("* Loading model...")
     global model
     model = load_model('static/models/weights/current_lodbrok.h5')
     print("* Model loaded")
 
+    BATCH_SIZE = size
+
     # All the editor detials are retrived here from redis
     queue = db.lrange(EDITOR_QUEUE, 0, BATCH_SIZE - 1)
-    editorIDs = []
     
-    queue = json.loads(queue[0])
-    editorIDs.append(queue["id"])
     
-    # changing string datetime to datetime objects
-    queue["birth_date"] = string_to_datetime(queue["birth_date"])
-    queue["member_since"] = string_to_datetime(queue["member_since"])
-    queue["email_confirm_date"] = string_to_datetime(queue["email_confirm_date"])
-    queue["last_updated"] = string_to_datetime(queue["last_updated"])
-    queue["last_login_date"] = string_to_datetime(queue["last_login_date"])
-    
-    # preprocessing the given input to get prediction
-    queue = preprocess_editor(queue)
+    for q in queue:
 
-    # defining the structure
-    queue = np.array([queue])
+        q = json.loads(q)
+        editor_id = q["id"]
     
-    # only data from index 1 is considered while predicting, thus 
-    # not taking the spam value into consideration
-    predict_data = {
-        "main_input": np.array(queue[:,1:10]),
-        "email_input": np.array(queue[:,10]),
-        "website_input": np.array(queue[:,11]),
-        "bio_input": np.array(queue[:,12:]),
-    }
-
-    # check to see if we need to process the batch
-    if len(editorIDs) > 0:
+        # changing string datetime to datetime objects
+        q["birth_date"] = string_to_datetime(q["birth_date"])
+        q["member_since"] = string_to_datetime(q["member_since"])
+        q["email_confirm_date"] = string_to_datetime(q["email_confirm_date"])
+        q["last_updated"] = string_to_datetime(q["last_updated"])
+        q["last_login_date"] = string_to_datetime(q["last_login_date"])
         
+        # preprocessing the given input to get prediction
+        q = preprocess_editor(q)
+
+        # defining the structure
+        q = np.array([q])
+        
+        # only data from index 1 is considered while predicting, thus 
+        # not taking the spam value into consideration
+        predict_data = {
+            "main_input": np.array(q[:,1:10]),
+            "email_input": np.array(q[:,10]),
+            "website_input": np.array(q[:,11]),
+            "bio_input": np.array(q[:,12:]),
+        }
+
+    
         result = model.predict(x = [
             predict_data["main_input"], 
             predict_data["email_input"],
@@ -83,10 +84,10 @@ def classify_process():
         prediction = json.dumps(prediction)        
 
         #storign the result in redis
-        db.set(str(editorIDs[0]), prediction)
-
-        # remove the set of editor from our queue
-        db.ltrim(EDITOR_QUEUE, len(editorIDs), -1)
+        db.set(str(editor_id), prediction)
+    
+    # remove the set of editor from our queue
+    db.ltrim(EDITOR_QUEUE, size, -1)
 
   
 

@@ -30,9 +30,9 @@ def predict():
                 editor_ids.append(editor_account["id"])
 
                 # convert missing parts to None to be compatible with preprossing
-                if(editor_account["area"]  is ''):
+                if(editor_account["area"]  == ''):
                     editor_account["area"] = None
-                if(editor_account["bio"]  is ''):
+                if(editor_account["bio"]  == ''):
                     editor_account["bio"] = None
             
             number_of_editors = len(editor_ids)
@@ -84,9 +84,9 @@ def train():
             for key, editor_account in editor_accounts.items(): 
                                 
                 # set unfilled values to None to be compatible with preprocessing
-                if(editor_account["area"]  is ''):                    
+                if(editor_account["area"]  == ''):                    
                     editor_account["area"] = None
-                if(editor_account["bio"]  is ''):
+                if(editor_account["bio"]  == ''):
                     editor_account["bio"] = None
 
                 # converting string json date atrributes data to datetime object

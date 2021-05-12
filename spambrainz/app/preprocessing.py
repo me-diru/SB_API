@@ -1,11 +1,11 @@
 import os
 import pickle
 import numpy as np
-from keras.preprocessing.text import Tokenizer
+from tensorflow.keras.preprocessing.text import Tokenizer
 from urllib.parse import urlparse
 from datetime import timedelta
 from urlextract import URLExtract
-from keras.preprocessing.text import Tokenizer
+from tensorflow.keras.preprocessing.text import Tokenizer
 
 extractor = URLExtract()
 one_hour = timedelta(hours=1)

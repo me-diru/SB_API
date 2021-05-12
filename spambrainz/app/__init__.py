@@ -1,6 +1,5 @@
 import flask
 import redis
-import keras
 from threading import Thread
 
 # initialize our Flask application, Redis server, and Keras model

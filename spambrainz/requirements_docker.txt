@@ -50,7 +50,7 @@ tensorflow-estimator==2.3.0
 termcolor==1.1.0
 uritools==3.0.0
 urlextract==1.0.0
-urllib3==1.25.10
+urllib3==1.26.5
 Werkzeug==1.0.1
 wrapt==1.12.1
 zipp==3.1.0

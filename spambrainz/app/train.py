@@ -2,7 +2,7 @@ import numpy as np
 from tensorflow.keras.layers import Input, Dense, Embedding, LSTM, Dropout, Reshape, concatenate
 from tensorflow.keras.models import Model
 from tensorflow.keras.optimizers import Adam
-from keras.utils.np_utils import to_categorical
+from tensorflow.keras.utils import to_categorical
 
 
 def get_model() -> Model:
@@ -67,7 +67,7 @@ def load_model(path: str) -> Model:
 
 def retrain_model(training_data):
     import datetime
-    from keras.callbacks import TensorBoard
+    from tensorflow.keras.callbacks import TensorBoard
 
     tensorboard = TensorBoard(
         log_dir="./logs", write_graph=True, histogram_freq=0)

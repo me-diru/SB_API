@@ -34,7 +34,7 @@ mbdata==25.0.4
 numpy==1.19.5
 oauthlib==3.1.0
 opt-einsum==3.3.0
-protobuf==3.12.4
+protobuf==3.18.3
 pyasn1==0.4.8
 pyasn1-modules==0.2.8
 pytz==2020.1
